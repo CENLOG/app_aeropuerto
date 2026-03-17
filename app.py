@@ -126,6 +126,6 @@ with tab2:
         color = 'CANTIDAD',
         color_continuous_scale='tealgrn',
     )
-    fig_rutas.updates_coloraxes(showscale=False)
+    fig_rutas.update_coloraxes(showscale=False)
     #Mostrar la grafica de barras
     st.plotly_chart(fig_rutas, use_containers_width=True, key='rutas_tab2')
