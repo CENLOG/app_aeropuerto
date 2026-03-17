@@ -65,11 +65,11 @@ st.image('avion.png', use_container_width=True)
 st.title('Datos Operaciones')
 col1, col2, col3 =st.columns(3)
 with col1:
-    st.metric('Mínimo',f'{minimo:.0f}',border=True)
+    st.metric('Mínimo',f'{minimo:.0f}','10%', border=True)
 with col2:
-    st.metric('Media',f'{media:.0f}',border=True)
+    st.metric('Media',f'{media:.0f}','20%', border=True)
 with col3:
-    st.metric('Máximo',f'{maximo:.0f}',border=True)
+    st.metric('Máximo',f'{maximo:.0f}','30%', border=True)
 
 #VER DATAFRAME EN DESPLEGABLE:
 with st.expander('Ver Matriz de Datos'):
@@ -77,6 +77,7 @@ with st.expander('Ver Matriz de Datos'):
 
 with st.expander('Top 5 Aeropuertos con Mayor Número de operaciones:'):
     st.dataframe(df_top5_ops_aeropuertos)
+
 #ANÁLISIS AEROPUERTOS CON MAYOR NÚMEROS DE OPERACIONES
 fig_barras = px.bar(
     df_top5_ops_aeropuertos, 
@@ -111,3 +112,20 @@ with col4:
     st.plotly_chart(fig_barras,use_container_width=True)
 with col5:
     st.plotly_chart(fig_rutas,use_container_width=True)
+
+tab1, tab2 = st.tabs(['Matriz de Datos', 'Grafica de Barras'])
+with tab1:
+    st.dataframe(df_top10_rutas)
+with tab2: 
+    df_top10_rutas = df_top10_rutas.sort_values('CANTIDAD', ascending=True)
+    fig_rutas2 = px.bar(
+        df_top10_rutas,
+        x='CANTIDAD',
+        y='RUTA',
+        title='TOP 10 RUTAS con mayor número de operaciones',
+        color = 'CANTIDAD',
+        color_continuous_scale='tealgrn',
+    )
+    fig_rutas.updates_coloraxes(showcase=False)
+    #Mostrar la grafica de barras
+    st.plotly_chart(fig_rutas, use_containers_width=True, key='rutas_tab2')
